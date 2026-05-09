@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lo siento, Sofía 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:     #c0445a;
+      --rose-lt:  #e8829a;
+      --cream:    #fdf6f0;
+      --warm:     #f5e6d8;
+      --brown:    #5a3040;
+      --gold:     #c9966a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: 'Cormorant Garamond', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(192,68,90,.13) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,150,106,.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .envelope {
+      font-size: 4.5rem;
+      animation: float 3.5s ease-in-out infinite;
+      margin-bottom: 1.2rem;
+      filter: drop-shadow(0 6px 18px rgba(192,68,90,.3));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-14px); }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--rose);
+      letter-spacing: -.02em;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: rise .9s .3s ease forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .hero .subtitle {
+      margin-top: 1rem;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-style: italic;
+      color: var(--gold);
+      opacity: 0;
+      animation: rise .9s .6s ease forwards;
+    }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--rose-lt);
+      opacity: 0;
+      animation: rise 1s 1.5s ease forwards;
+    }
+
+    .scroll-hint span { animation: bounce 1.6s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    .letter-section {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1.5rem 6rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .letter-card {
+      background: #fff;
+      max-width: 680px;
+      width: 100%;
+      border-radius: 4px;
+      box-shadow:
+        0 2px 0 var(--warm),
+        0 8px 40px rgba(90,48,64,.12),
+        0 30px 60px rgba(90,48,64,.06);
+      padding: clamp(2rem, 6vw, 4rem) clamp(2rem, 7vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
+    }
+
+    .letter-card::after {
+      content: '';
+      position: absolute;
+      inset: 5rem 0 0;
+      background-image: repeating-linear-gradient(
+        transparent 0, transparent 33px, rgba(201,150,106,.12) 33px, rgba(201,150,106,.12) 34px
+      );
+      pointer-events: none;
+    }
+
+    .letter-date {
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-greeting {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-style: italic;
+      color: var(--rose);
+      margin-bottom: 1.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-body {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 1.95;
+      color: #4a3040;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-body p + p { margin-top: 1.2rem; }
+
+    .letter-sign {
+      margin-top: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--rose);
+      text-align: right;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hearts-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1rem 0 5rem;
+      flex-wrap: wrap;
+    }
+
+    .heart-beat {
+      font-size: 2.2rem;
+      animation: heartbeat 1.4s ease-in-out infinite;
+    }
+
+    .heart-beat:nth-child(2) { animation-delay: .2s; }
+    .heart-beat:nth-child(3) { animation-delay: .4s; }
+    .heart-beat:nth-child(4) { animation-delay: .6s; }
+    .heart-beat:nth-child(5) { animation-delay: .8s; }
+
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      14%      { transform: scale(1.25); }
+      28%      { transform: scale(1); }
+      42%      { transform: scale(1.15); }
+      56%      { transform: scale(1); }
+    }
+
+    .promise-section {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, var(--rose) 0%, #a03050 100%);
+      padding: 5rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .promise-section::before {
+      content: '❝';
+      position: absolute;
+      font-size: 18rem;
+      color: rgba(255,255,255,.04);
+      top: -3rem; left: -1rem;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .promise-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 3rem);
+      color: #fff;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+
+    .promises {
+      display: grid;
+      gap: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .promise-item {
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: #fff;
+      font-size: clamp(.95rem, 2.5vw, 1.15rem);
+      text-align: left;
+      transition: background .3s, transform .3s;
+      cursor: default;
+    }
+
+    .promise-item:hover {
+      background: rgba(255,255,255,.18);
+      transform: translateX(6px);
+    }
+
+    .promise-item .icon { font-size: 1.5rem; flex-shrink: 0; }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: .5rem;
+      padding: 1rem 3rem;
+      background: #fff;
+      color: var(--rose);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(0,0,0,.2);
+      transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: .9rem;
+      color: var(--rose-lt);
+      font-style: italic;
+      letter-spacing: .05em;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(90,48,64,.55);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .overlay.active { display: flex; }
+
+    .popup {
+      background: #fff;
+      border-radius: 8px;
+      max-width: 420px;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      position: relative;
+      animation: popIn .4s cubic-bezier(.175,.885,.32,1.275);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(.7); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
+    }
+
+    .popup .big-emoji { font-size: 4rem; margin-bottom: 1rem; }
+    .popup h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--rose);
+      margin-bottom: .8rem;
+    }
+    .popup p { font-size: 1.1rem; line-height: 1.7; color: var(--brown); }
+
+    .popup-close {
+      margin-top: 1.8rem;
+      padding: .75rem 2.5rem;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .popup-close:hover { background: var(--brown); }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.8rem; }
+
+      .letter-card {
+        padding: 2rem 1.5rem;
+        margin: 0 .5rem;
+      }
+
+      .letter-greeting { font-size: 1.5rem; }
+      .letter-body     { font-size: 1rem; line-height: 1.85; }
+      .letter-sign     { font-size: 1.2rem; }
+
+      .promise-section { padding: 3.5rem 1.2rem; }
+      .promise-section h2 { font-size: 1.5rem; }
+
+      .promise-item {
+        padding: .85rem 1rem;
+        font-size: .95rem;
+      }
+
+      .cta-btn {
+        padding: .9rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .popup { padding: 2rem 1.5rem; }
+      .popup h3 { font-size: 1.4rem; }
+      .popup p  { font-size: 1rem; }
+
+      .popup-close {
+        padding: .7rem 1.8rem;
+        font-size: 1rem;
+      }
+
+      .hearts-row { gap: .7rem; padding-bottom: 3rem; }
+      .heart-beat { font-size: 1.8rem; }
+
+      footer { padding: 2rem 1rem; font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="petals"></canvas>
+
+<section class="hero">
+  <div class="envelope">💌</div>
+  <h1>Perdóname,<br><em>mi amor</em></h1>
+  <p class="subtitle">Con todo mi corazón</p>
+  <div class="scroll-hint">
+    <span>↓</span>
+    Desliza para leer
+  </div>
+</section>
+
+<section class="letter-section">
+  <div class="letter-card">
+    <p class="letter-date" id="fecha"></p>
+    <p class="letter-greeting">Mi amor,</p>
+    <div class="letter-body">
+      <p>
+        Te prometí que iba a cambiar. Te dije que iba a dejar de hacer mis tonterías
+        y que iba a demostrarte que me importas. Pero cuando hablábamos lo hice otra vez
+        perdóname mucho no quería lastimarte menos que pensaras que no me importas.
+      </p>
+      <p>
+        No tengo excusas sé que te dolió porque ya habíamos hablado de eso
+        y aun así lo hice. Perdóname de verdad.
+      </p>
+      <p>
+        Me importas mucho y no quiero perderte quiero seguir a tu lado y vivir a tu lado
+        lograr hacerte feliz y nunca lastimarte nunca más mi amor eres todo mi mundo para mí
+        te amo con todo mi ser y alma mi amor quiero de esta vez demostrarte que de verdad
+        cumpliré lo que digo.
+      </p>
+      <p>
+        Gracias por leer esto. Te amo.
+      </p>
+    </div>
+    <p class="letter-sign">Te amo por siempre 💕</p>
+  </div>
+</section>
+
+<div class="hearts-row">
+  <span class="heart-beat">💗</span>
+  <span class="heart-beat">🌹</span>
+  <span class="heart-beat">💗</span>
+  <span class="heart-beat">🌹</span>
+  <span class="heart-beat">💗</span>
+</div>
+
+<section class="promise-section">
+  <h2>Lo que te prometo, mi vida</h2>
+  <div class="promises">
+    <div class="promise-item"><span class="icon">🤝</span> Cumplir lo que te digo, siempre</div>
+    <div class="promise-item"><span class="icon">🗣️</span> Ser más honesto y comunicarme mejor</div>
+    <div class="promise-item"><span class="icon">👂</span> Escucharte con atención y sin distracciones</div>
+    <div class="promise-item"><span class="icon">💪</span> Esforzarme cada día para ser mejor para ti</div>
+    <div class="promise-item"><span class="icon">❤️</span> Amarte y hacerte sentir especial siempre</div>
+  </div>
+  <button class="cta-btn" onclick="document.querySelector('.overlay').classList.add('active')">
+    ¿Me perdonas, mi amor? 🥺
+  </button>
+</section>
+
+<footer>
+  Hecho con amor para la persona más importante de mi vida &nbsp;♡
+</footer>
+
+<div class="overlay">
+  <div class="popup">
+    <div class="big-emoji">🥰</div>
+    <h3>¡Gracias, mi amor!</h3>
+    <p>
+      Nunca más te voy a fallar de nuevo, te lo prometo.<br>
+      <strong>Te amo muchísimo.</strong>
+    </p>
+    <button class="popup-close" onclick="document.querySelector('.overlay').classList.remove('active')">
+      Con todo mi amor ❤️
+    </button>
+  </div>
+</div>
+
+<script>
+  const months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const d = new Date();
+  document.getElementById('fecha').textContent =
+    `${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`;
+
+  const canvas = document.getElementById('petals');
+  const ctx    = canvas.getContext('2d');
+  const symbols = ['🌸','💗','🌹','✨','💕','🍃'];
+
+  let particles = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function spawn() {
+    particles.push({
+      x:     Math.random() * canvas.width,
+      y:     -30,
+      size:  14 + Math.random() * 18,
+      speed: .4 + Math.random() * .7,
+      drift: (Math.random() - .5) * .6,
+      rot:   Math.random() * Math.PI * 2,
+      rotV:  (Math.random() - .5) * .04,
+      sym:   symbols[Math.floor(Math.random() * symbols.length)],
+      alpha: .6 + Math.random() * .4,
+    });
+  }
+
+  let frame = 0;
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+    if (frame % 28 === 0) spawn();
+
+    particles = particles.filter(p => p.y < canvas.height + 50);
+    for (const p of particles) {
+      p.y   += p.speed;
+      p.x   += p.drift;
+      p.rot += p.rotV;
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.font = `${p.size}px serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(p.sym, 0, 0);
+      ctx.restore();
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+</script>
+</body>
+</html>
