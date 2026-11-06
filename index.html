@@ -1,72 +1,888 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Para ti</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#210f1c">
+
+<title>Para Sofía ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#1c1830;--ink:#f3e9dc;--soft:#b9a9c9;--glow:#e9a6b4;--paper:#2a2444}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#3a2f5c 0%,var(--bg) 65%);color:var(--ink);font-family:Georgia,"Times New Roman",serif;display:flex;justify-content:center;padding:32px 20px}
-main{width:100%;max-width:520px;text-align:center}
-h1{font-weight:400;font-size:clamp(40px,11vw,64px);margin:24px 0 4px;letter-spacing:.02em;color:var(--glow)}
-.sub{color:var(--soft);font-style:italic;margin:0 0 28px}
-button{font:inherit;background:var(--glow);color:#2a1830;border:0;border-radius:999px;padding:14px 28px;font-size:17px;cursor:pointer}
-button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-#letter{display:none;margin-top:28px;background:var(--paper);border-radius:6px;padding:28px 24px;text-align:left;line-height:1.75;font-size:18px;max-width:62ch}
-#letter.show{display:block;animation:in 1.6s ease both}
-#letter p{margin:0 0 1em}
-#letter p:last-child{margin-bottom:0}
-@keyframes in{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion:reduce){#letter.show{animation:none}}
+
+:root {
+    --background: #170d16;
+    --wine: #351525;
+    --pink: #e99ab5;
+    --light: #fceaf1;
+    --muted: #d8b6c5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #57243d 0%, transparent 45%),
+        linear-gradient(145deg, #170d16, #291321 55%, #421b30);
+    color: var(--light);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* CORAZONES */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -40px;
+    color: #f19ab9;
+    opacity: 0;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    10% { opacity: .5; }
+    90% { opacity: .4; }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    50% { transform: scale(1.17); }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* CONTENEDOR */
+
+.container {
+    width: 100%;
+    max-width: 760px;
+    padding: 25px 20px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* PORTADA */
+
+.welcome {
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.heart-icon {
+    font-size: 65px;
+    color: var(--pink);
+    animation: pulse 1.7s infinite;
+    margin-bottom: 25px;
+    text-shadow: 0 0 30px #e98aaa80;
+}
+
+.subtitle {
+    color: var(--pink);
+    font-size: 10px;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+.welcome h1 {
+    font-size: clamp(48px, 10vw, 75px);
+    margin-bottom: 20px;
+}
+
+.description {
+    max-width: 390px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2;
+}
+
+.main-button {
+    margin-top: 35px;
+    padding: 15px 32px;
+    background: linear-gradient(135deg, #f4b0c8, #dc799e);
+    border: 1px solid #ffc7dc;
+    border-radius: 40px;
+    color: #351525;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 30px #e98aaa30;
+    transition: .3s;
+}
+
+.main-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px #e98aaa50;
+}
+
+.signature {
+    margin-top: 30px;
+    color: #c99aaf;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+
+/* REGALO */
+
+.gift {
+    text-align: center;
+    padding-top: 45px;
+    animation: appear 1s ease;
+}
+
+.gift h1 {
+    font-size: clamp(40px, 9vw, 60px);
+    line-height: 1.2;
+}
+
+.divider {
+    width: 65px;
+    height: 1px;
+    background: var(--pink);
+    margin: 25px auto;
+}
+
+/* FOTOGRAFÍA */
+
+.photo-frame {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 10px;
+    background: #f9e5ed;
+    border-radius: 5px;
+    transform: rotate(-1.5deg);
+    box-shadow: 0 15px 45px #0006;
+}
+
+.photo-frame img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.photo-placeholder {
+    min-height: 250px;
+    background: linear-gradient(135deg, #71354e, #c16a8d);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.photo-caption {
+    color: #71394f;
+    padding: 13px 5px 5px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+}
+
+.intro-text {
+    max-width: 530px;
+    margin: 40px auto 65px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2.2;
+}
+
+/* TARJETAS */
+
+.card {
+    background: linear-gradient(145deg, #ffffff0e, #ffffff05);
+    border: 1px solid #ffffff1c;
+    border-radius: 22px;
+    padding: 30px 22px;
+    margin-bottom: 35px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 40px #0002;
+}
+
+.card-icon {
+    font-size: 35px;
+    color: var(--pink);
+}
+
+.card h2 {
+    font-size: 31px;
+    margin: 12px 0;
+}
+
+.card-description {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.9;
+    margin-bottom: 25px;
+}
+
+/* PLAYLIST */
+
+.youtube-container {
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid #ffffff20;
+    background: #100c10;
+    margin-top: 20px;
+}
+
+.youtube-container iframe {
+    display: block;
+    width: 100%;
+    height: 380px;
+    border: none;
+}
+
+.youtube-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #f3b0c8;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.youtube-link:hover {
+    text-decoration: underline;
+}
+
+/* MENSAJE ESPECIAL */
+
+.special-message {
+    background: linear-gradient(145deg, #fff4f6, #f4dce6);
+    color: #512b3d;
+    border-radius: 18px;
+    padding: 35px 25px;
+    margin: 35px 0;
+    box-shadow: 0 15px 40px #0004;
+    text-align: center;
+    border: 1px solid #f8c9d9;
+    animation: appear 1s ease;
+}
+
+.message-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.special-message h2 {
+    color: #a4486d;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.message-subtitle {
+    color: #a76b83;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.message-content {
+    background: #ffffffa6;
+    padding: 25px 22px;
+    border-radius: 12px;
+    text-align: left;
+    border-left: 3px solid #d982a4;
+}
+
+.message-content p {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    line-height: 2;
+    color: #593247;
+    margin-bottom: 17px;
+}
+
+.message-content .message-ending {
+    text-align: center;
+    color: #b04470;
+    font-size: 23px;
+    font-style: italic;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+.message-signature {
+    margin-top: 22px;
+    color: #a4486d;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    text-align: center;
+    font-size: 17px;
+}
+
+/* CARTA */
+
+.envelope {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.letter-button {
+    background: transparent;
+    border: 1px solid var(--pink);
+    border-radius: 30px;
+    color: var(--light);
+    padding: 13px 28px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.letter-button:hover {
+    background: #e98aaa25;
+    transform: translateY(-2px);
+}
+
+.letter {
+    margin-top: 30px;
+    background: linear-gradient(145deg, #fff3f6, #f5dce6);
+    color: #492638;
+    border-radius: 13px;
+    padding: 30px 25px;
+    text-align: left;
+    box-shadow: 0 12px 35px #0003;
+    animation: appear .7s ease;
+}
+
+.letter h2 {
+    color: #a4486d;
+    text-align: center;
+    font-size: 27px;
+    margin-bottom: 25px;
+}
+
+.letter p {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    line-height: 2;
+    margin-bottom: 18px;
+}
+
+.letter .love {
+    color: #a4486d;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 25px;
+}
+
+.letter .final-signature {
+    color: #a4486d;
+    text-align: center;
+    font-style: italic;
+}
+
+/* MENSAJE FINAL */
+
+.final-message {
+    padding: 45px 10px 20px;
+}
+
+.big-heart {
+    color: var(--pink);
+    font-size: 35px;
+}
+
+.final-message p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: #f1c8d8;
+    line-height: 1.8;
+    margin-top: 15px;
+}
+
+/* PIE */
+
+footer {
+    padding: 35px 0 20px;
+    color: #bd91a5;
+    font-size: 11px;
+    line-height: 2;
+    text-align: center;
+}
+
+footer span {
+    color: var(--pink);
+}
+
+/* CELULARES */
+
+@media(max-width: 480px) {
+
+    .container {
+        padding: 18px 14px;
+    }
+
+    .welcome {
+        min-height: 90vh;
+    }
+
+    .gift {
+        padding-top: 30px;
+    }
+
+    .card {
+        padding: 25px 14px;
+        border-radius: 18px;
+    }
+
+    .youtube-container iframe {
+        height: 350px;
+    }
+
+    .letter {
+        padding: 23px 17px;
+    }
+
+    .letter p {
+        font-size: 15px;
+    }
+
+    .intro-text {
+        font-size: 13px;
+    }
+
+    .special-message {
+        padding: 27px 15px;
+    }
+
+    .message-content {
+        padding: 20px 16px;
+    }
+
+    .message-content p {
+        font-size: 15px;
+        line-height: 1.9;
+    }
+}
+
 </style>
 </head>
+
 <body>
-<main>
-<h1>Mi vida &lt;3</h1>
-<p class="sub">Esto es para ti. Toca para empezar.</p>
-<button id="btn">Abrir mi carta</button>
-<section id="letter" aria-live="polite">
-<p>Quería pedirte perdón, mi amor, por lo que he hecho. Casi siempre hago las cosas mal y ya no quiero seguir siendo el mismo. Quiero hacerte feliz, quiero estar a tu lado y poder estar contigo para siempre y por siempre.</p>
-<p>Por eso te hago esto, para que me creas que es verdad, para que creas que sí quiero estar contigo, que sí quiero algo serio a tu lado.</p>
-<p>Perdóname. Eres la mujer de mi vida, solo te quiero a mi lado. Te amo, mi Sofi.</p>
-</section>
+
+<div class="hearts" id="hearts"></div>
+
+<main class="container">
+
+    <!-- PORTADA -->
+
+    <section class="welcome" id="welcome">
+
+        <div class="heart-icon">♥</div>
+
+        <p class="subtitle">UN REGALO HECHO CON AMOR</p>
+
+        <h1>Para Sofía</h1>
+
+        <p class="description">
+            Hay detalles que no necesitan ser grandes
+            para significar muchísimo.
+            Este pequeño regalo es para ti.
+        </p>
+
+        <button class="main-button" id="openGift">
+            Abrir mi regalo ♥
+        </button>
+
+        <p class="signature">
+            De alguien que te quiere muchísimo.
+        </p>
+
+    </section>
+
+
+    <!-- CONTENIDO DEL REGALO -->
+
+    <section class="gift hidden" id="gift">
+
+        <p class="subtitle">UNA HISTORIA, DOS CORAZONES</p>
+
+        <h1>Nuestra historia<br>en canciones.</h1>
+
+        <div class="divider"></div>
+
+
+        <!-- FOTOGRAFÍA -->
+
+        <div class="photo-frame">
+
+            <img
+                src="foto.jpg"
+                alt="Un recuerdo de nosotros"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+
+            <div class="photo-placeholder" style="display:none;">
+                <span style="font-size:55px;">♥</span>
+                <p>Un recuerdo de nosotros</p>
+            </div>
+
+            <p class="photo-caption">
+                Un recuerdo que siempre llevaré conmigo.
+            </p>
+
+        </div>
+
+
+        <!-- INTRODUCCIÓN -->
+
+        <p class="intro-text">
+            ¿Sabes qué es lo bonito de las canciones?
+
+            Que a veces pueden guardar sentimientos,
+            recuerdos y momentos que nunca queremos olvidar.
+
+            Tú creaste una playlist para nosotros,
+            y yo quise convertirla en un pequeño regalo
+            para que siempre tengamos un lugar donde
+            volver a escuchar nuestra historia.
+        </p>
+
+
+        <!-- PLAYLIST -->
+
+        <section class="card">
+
+            <div class="card-icon">♫</div>
+
+            <h2>Nuestra playlist</h2>
+
+            <p class="card-description">
+                Cada canción tiene algo especial.
+                Gracias por crear este pequeño mundo musical
+                para los dos.
+            </p>
+
+            <div class="youtube-container">
+
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/videoseries?list=PLtdRr_HW_Za25XBMh1AJdu8h4aJt2HDj_"
+                    title="Nuestra playlist de YouTube"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <a
+                class="youtube-link"
+                href="https://youtube.com/playlist?list=PLtdRr_HW_Za25XBMh1AJdu8h4aJt2HDj_"
+                target="_blank"
+                rel="noopener noreferrer">
+                Abrir playlist en YouTube ↗
+            </a>
+
+        </section>
+
+
+        <!-- MENSAJE PERSONAL DE ABRAHAM -->
+
+        <section class="special-message">
+
+            <div class="message-icon">💗</div>
+
+            <p class="subtitle">DE MI CORAZÓN PARA TI</p>
+
+            <h2>Unas palabras para ti</h2>
+
+            <p class="message-subtitle">
+                Hay cosas que quiero que nunca olvides...
+            </p>
+
+            <div class="message-content">
+
+                <p>
+                    Hola, mi amor. ❤️
+                </p>
+
+                <p>
+                    Sé que ha pasado un tiempo y todo eso,
+                    pero necesitaba tomarme el tiempo para
+                    hacerte algo especial, algo para ti.
+                    Sabes que me importas muchísimo, que
+                    te amo tanto, que me encantas y que
+                    siempre pienso en ti.
+                </p>
+
+                <p>
+                    Sé que ahora no estamos pasando por
+                    nuestro mejor momento, que quizás te
+                    sientes mal o estás enojada, pero quería
+                    hacerte esto como un pequeño detalle
+                    por nuestro aniversario, por estos
+                    cuatro años que llevo a tu lado.
+                </p>
+
+                <p>
+                    Sé que hemos tenido discusiones y que
+                    incluso nos hemos separado algunas veces,
+                    pero nuestra historia también tiene cosas
+                    muy lindas y muchos momentos que pude
+                    vivir a tu lado, momentos que siempre
+                    voy a guardar en mi corazón.
+                </p>
+
+                <p>
+                    Eres mi primera enamorada y quiero que
+                    seas la única. Te amo tanto. Me has
+                    enseñado muchísimas cosas, siempre te
+                    lo he dicho y te lo seguiré diciendo:
+                    para mí eres la mujer perfecta.
+                </p>
+
+                <p>
+                    Te amo con toda mi alma y con todo
+                    mi ser. Gracias por estar todo este
+                    tiempo a mi lado. Quiero que me
+                    acompañes para siempre, porque
+                    sinceramente no puedo imaginarme
+                    vivir el resto de mi vida sin ti.
+                </p>
+
+                <p>
+                    Te amo y quiero seguir eligiéndote
+                    solamente a ti. Lo vuelvo a decir:
+                    gracias por todo este tiempo, Sofía.
+                    Han sido cuatro años llenos de momentos
+                    que hicieron mi vida mucho más feliz.
+                </p>
+
+                <p>
+                    No sé qué nos espera más adelante,
+                    pero sí sé que deseo seguir construyendo
+                    momentos bonitos contigo.
+                </p>
+
+                <p class="message-ending">
+                    Te amo con todo mi corazón, Sofía. ❤️
+                </p>
+
+                <div class="message-signature">
+                    Con todo mi amor,<br>
+                    Abraham ♥
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CARTA ADICIONAL -->
+
+        <section class="card">
+
+            <div class="envelope">💌</div>
+
+            <h2>Un último detalle</h2>
+
+            <p class="card-description">
+                Porque todavía tengo algo más que decirte...
+            </p>
+
+            <button class="letter-button" id="openLetter">
+                Abrir mi carta ♥
+            </button>
+
+            <div class="letter hidden" id="letter">
+
+                <h2>Mi querida Sofía ❤️</h2>
+
+                <p>
+                    Quiero que sepas lo especial que eres
+                    para mí. Me encanta saber que tenemos
+                    canciones que forman parte de nuestra historia.
+                </p>
+
+                <p>
+                    Cada una de ellas me recuerda que detrás
+                    de una canción puede existir un recuerdo,
+                    una sonrisa y una persona que significa
+                    muchísimo.
+                </p>
+
+                <p>
+                    Gracias por crear esta playlist para
+                    nosotros. Quise hacerte este pequeño
+                    detalle porque me pareció bonito tener
+                    un lugar donde podamos recordar todas
+                    esas canciones que forman parte de
+                    nuestra historia.
+                </p>
+
+                <p>
+                    Espero que sigamos compartiendo momentos,
+                    risas, abrazos y muchas canciones más.
+                    Quiero seguir creando recuerdos bonitos
+                    contigo.
+                </p>
+
+                <p class="love">
+                    Te quiero muchísimo. ❤️
+                </p>
+
+                <p class="final-signature">
+                    Con todo mi amor, siempre.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FINAL -->
+
+        <div class="final-message">
+
+            <div class="big-heart">♥</div>
+
+            <p>
+                No importa cuántas canciones existan,
+                siempre habrá una historia que será
+                nuestra favorita.
+            </p>
+
+        </div>
+
+
+        <footer>
+
+            <p>Hecho con mucho amor para Sofía</p>
+
+            <p>
+                Una historia que todavía sigue escribiéndose...
+            </p>
+
+            <p><span>♥</span> Tú y yo <span>♥</span></p>
+
+        </footer>
+
+    </section>
+
 </main>
+
+
 <script>
-(function(){
-var ctx,playing=false,timer,bi=0;
-var N={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,E5:659.25};
-var chords=[["C4","E4","G4","C5"],["A4","C5","E5","C5"],["F4","A4","C5","A4"],["G4","B4","D4","B4"]];
-function note(f,t,d){
-  var o=ctx.createOscillator(),g=ctx.createGain();
-  o.type="triangle";o.frequency.value=f;
-  g.gain.setValueAtTime(0,t);
-  g.gain.linearRampToValueAtTime(.14,t+.03);
-  g.gain.exponentialRampToValueAtTime(.0008,t+d);
-  o.connect(g);g.connect(ctx.destination);
-  o.start(t);o.stop(t+d+.05);
-}
-function bar(i){
-  var c=chords[i%4],t=ctx.currentTime+.05,step=.55;
-  for(var k=0;k<4;k++){
-    var f=N[c[k]];
-    if((i%4===1||i%4===2)&&k<2)f/=2;
-    note(f,t+k*step,2.2);
-  }
-  note(N[c[0]]/2,t,2.6);
-}
-function loop(){bar(bi++);timer=setTimeout(loop,2200);}
-document.getElementById("btn").addEventListener("click",function(){
-  var b=this;
-  try{
-    if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==="suspended")ctx.resume();
-    if(!playing){playing=true;loop();b.textContent="Pausar música";}
-    else{playing=false;clearTimeout(timer);b.textContent="Poner música";}
-  }catch(e){}
-  document.getElementById("letter").classList.add("show");
+
+// ABRIR REGALO
+
+const openGift = document.getElementById("openGift");
+const welcome = document.getElementById("welcome");
+const gift = document.getElementById("gift");
+
+openGift.addEventListener("click", () => {
+
+    welcome.classList.add("hidden");
+    gift.classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 });
-})();
+
+
+// ABRIR Y CERRAR CARTA
+
+const openLetter = document.getElementById("openLetter");
+const letter = document.getElementById("letter");
+
+openLetter.addEventListener("click", () => {
+
+    letter.classList.toggle("hidden");
+
+    const isHidden = letter.classList.contains("hidden");
+
+    openLetter.textContent = isHidden
+        ? "Abrir mi carta ♥"
+        : "Cerrar mi carta";
+
+});
+
+
+// CORAZONES ANIMADOS
+
+const heartsContainer = document.getElementById("hearts");
+
+function createHeart() {
+
+    const heart = document.createElement("span");
+
+    heart.classList.add("floating-heart");
+    heart.textContent = "♥";
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (12 + Math.random() * 20) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+
+}
+
+setInterval(createHeart, 700);
+
 </script>
+
 </body>
 </html>
